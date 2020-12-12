@@ -44,6 +44,7 @@ function addController(id){
 	activateSVGPaths();
 }
 function showPath(path_name){
+	console.log("PATH NAME: "+path_name)
 	var path_str = path_name.id;
 	var path_str = path_str.substr(-3, 3);
 	var control_color = path_name.getAttribute('stroke');
