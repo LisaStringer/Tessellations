@@ -1,6 +1,50 @@
 // JavaScript Document
+var ultramarine_green = "#006A56"
+var samba = "#A1232E"
+var fired_brick = "#692E2A"
+var sleet = "#94949E"
+var amber_glow = "#DD7A3F"
+
+var green_sheen = "#D9CE52"
+var classic_blue = "#0E4B81"
+var magenta_purple = "#6C254D"
+var blue_depths = "#283057"
+var military_olive = "#645639"
+var curr_color = "#94949E";
+var autumn_colors = ["ultramarine_green", "samba", "fired_brick", "amber_glow", "green_sheen", "classic_blue", "magenta_purple", "blue_depths", "military_olive", "sleet"]
+var autumn = [ultramarine_green, samba, "#692E2A", "#DD7A3F", "#D9CE52", "#0E4B81", "#6C254D", "#283057", "#645639", "#94949E"]
 var container = document.getElementById("container");
+var color_container = document.getElementById("color_container");
+
 var nav_bar = document.getElementById("nav_bar");
+
+function setColor(hex_code){
+	
+	
+	console.log("SET COLOR: "+hex_code);
+	curr_color = hex_code;
+	
+}
+function populateColors(){
+
+	var curr_left = 0;
+	for (n = 0; n < autumn.length; n++) { 
+		curr_left = (n*10)+"%";
+		var color_hitarea = document.createElement("div");
+		
+		color_hitarea.id = "color"+n;
+		color_hitarea.className="color_swab";
+		color_hitarea.style["background-color"] = autumn[n];
+		var new_color = autumn[n];
+		
+		console.log(new_color)
+		color_hitarea.style["left"] = curr_left;
+		color_hitarea.innerHTML="<button class='button' span style='color:white'><div onclick='setColor("+autumn_colors[n]+")'>"+autumn[n]+"</div></span></button>";
+		color_container.appendChild(color_hitarea);
+		console.log(color_hitarea)
+		
+	}
+}
 function createPattern(){
 	var left_calc = 10;
 	var top_calc = 10;
@@ -88,22 +132,22 @@ function showFill(fill_area_id){
 	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
 	//if U calculate from top
 	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
-	td01.setAttributeNS(null, 'fill', "#4472C4");
+	td01.setAttributeNS(null, 'fill', curr_color);
 	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
-	td02.setAttributeNS(null, 'fill', "#4472C4");
+	td02.setAttributeNS(null, 'fill', curr_color);
 	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
-	td03.setAttributeNS(null, 'fill', "#4472C4");
+	td03.setAttributeNS(null, 'fill', curr_color);
 	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num-1))
-	tu01.setAttributeNS(null, 'fill', "#4472C4");
+	tu01.setAttributeNS(null, 'fill', curr_color);
 	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
-	tu02.setAttributeNS(null, 'fill', "#4472C4");
+	tu02.setAttributeNS(null, 'fill', curr_color);
 	
 	//if D calculate from center
 	
 	//var path = document.getElementById("fill"+path_substr)
 	
 	fill_area_id.setAttributeNS(null, 'fill', "#4472C4");
-	
+	fill_area_id.removeEventListener('mouseout', mouseOutEffect);
 	/*var control_color = path_name.getAttribute('fill');
 	//toggle stroke width and color
 	if (control_color=="#D9D9D9"){
@@ -129,6 +173,58 @@ function showFill(fill_area_id){
 		}
 	}*/
 }
+function mouseOverEffect() {
+  //fill_area_id.classList.add("shape-highlight");
+	console.log("MOUSE OVER: "+this.id)
+	var pattern_path_id = this.id;
+	var	top_num = pattern_path_id.substr(6, 1);
+	
+	top_num = Number(top_num)
+	var left_num = pattern_path_id.substr(8, 2);
+	left_num = Number(left_num)
+	
+	var triangle_type = pattern_path_id.substr(5, 1);
+	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
+	//if U calculate from top
+	
+	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
+	td01.setAttributeNS(null, 'fill', "#4472C4");
+	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
+	td02.setAttributeNS(null, 'fill', "#4472C4");
+	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
+	td03.setAttributeNS(null, 'fill', "#4472C4");
+	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num-1))
+	tu01.setAttributeNS(null, 'fill', "#4472C4");
+	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
+	tu02.setAttributeNS(null, 'fill', "#4472C4");
+	
+}
+function mouseOutEffect() {
+	console.log("MOUSE OUt")
+  //this.classList.remove("shape-highlight");
+		console.log("MOUSE OVER: "+this.id)
+	var pattern_path_id = this.id;
+	var	top_num = pattern_path_id.substr(6, 1);
+	
+	top_num = Number(top_num)
+	var left_num = pattern_path_id.substr(8, 2);
+	left_num = Number(left_num)
+	
+	var triangle_type = pattern_path_id.substr(5, 1);
+	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
+	//if U calculate from top
+	
+	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
+	td01.setAttributeNS(null, 'fill', "#ffffff");
+	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
+	td02.setAttributeNS(null, 'fill', "#ffffff");
+	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
+	td03.setAttributeNS(null, 'fill', "#ffffff");
+	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num-1))
+	tu01.setAttributeNS(null, 'fill', "#ffffff");
+	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
+	tu02.setAttributeNS(null, 'fill', "#ffffff");
+}
 function activateSVGPaths(){
 	var lineclassElements = document.getElementsByClassName("hit_area");
 	
@@ -137,10 +233,13 @@ function activateSVGPaths(){
 		//lineclassElements[i].setAttributeNS(null, 'stroke', '#4472C4');
 		var hit_area_id = lineclassElements[i].id;
 		var fill_area_id = "fill"+hit_area_id.substr(3, 7);
-		console.log("HIT AREA ID: "+fill_area_id)
+		//console.log("HIT AREA ID: "+fill_area_id)
 		//var fill_area=document.getElementById(fill_area_id)
 		lineclassElements[i].setAttributeNS(null, 'cursor', "hand");
 		lineclassElements[i].setAttributeNS(null, 'onclick',"showFill("+fill_area_id+")");
+		//lineclassElements[i].addEventListener("mouseover", mouseOverEffect(fill_area_id));
+		//lineclassElements[i].addEventListener('mouseover', mouseOverEffect);
+   		//lineclassElements[i].addEventListener('mouseout', mouseOutEffect);
 }
 	/*for (n = 1; n <= 24; n++) { 
 	var p1 = document.getElementById(id+"_p"+n);
@@ -152,5 +251,6 @@ function activateSVGPaths(){
 	}*/
 }
 createPattern();
+populateColors();
 
 //addController("C1");
