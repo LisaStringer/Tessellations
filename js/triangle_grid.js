@@ -46,29 +46,27 @@ function populateColors(){
 	}
 }
 function createPattern(){
-	var left_calc = 10;
+	var left_calc = 100;
+	var left_start = 100;
 	var top_calc = 10;
 	var start_shape = "UP";
-	for (t = 0; t <= 4; t++) {
+	for (t = 0; t <= 8; t++) {
 		if (t%2==0){
 			console.log(t+": EVEN");
 			start_shape = "UP"
 		}else{
 			start_shape="DOWN"
 		}
-	for (n = 0; n <= 10; n++) { 
+	for (n = 0; n <= 20; n++) { 
 		addSection("_"+t+"_"+n, top_calc, left_calc, start_shape);
 		//console.log("clip_"+t+"_"+n)
 		left_calc = left_calc + 108;
 		//console.log(left_calc);
 	}
 		top_calc = top_calc + 98;
-		if (left_calc == 1198){
-			//left_calc = -44;
-			left_calc = 10;
-		}else{
-			left_calc = 10;
-		}
+		left_start = left_start -55;
+		left_calc = left_start;
+			
 		
 	}
 	//addSection("clip0", 10, 0);
@@ -76,6 +74,17 @@ function createPattern(){
 	//addSection("clip1", 10, 420);
 	activateSVGPaths();
 }
+/*function addDropShapes(){
+	var shape01_up = document.createElement("div");
+	shape01_up.innerHTML="<img id='drag1' src='../images/shape01.svg' draggable='true' ondragstart='drag(event)' width='333' height='195'>";
+	shape01_up.draggable="true";
+	shape01_up.ondragstart="drag(event)";
+	shape01_up.bottom="25px"
+	shape01_up.left="10px"
+
+	container.appendChild(shape01_up);
+	console.log(shape01_up)
+}*/
 function addSection(id, top, left, start){
 	//console.log(id);
 	
@@ -87,26 +96,21 @@ function addSection(id, top, left, start){
 	var triangle_up_hit = document.createElement("div");
 	triangle_up_hit.id="hit_U"+id;
 	triangle_up_hit.className="hit_area"
-	
+	//triangle_up_hit.ondrop="drop(event)";
+	//triangle_up_hit.ondragover="allowDrop(event)"
 
 	var triangle_down_hit = document.createElement("div");
 	triangle_down_hit.id="hit_D"+id;
 	triangle_down_hit.className="hit_area"
 	triangle_up_hit.style.left=left+32+"px";
-	triangle_up_hit.style.top=top+50+"px";
+	triangle_up_hit.style.top=top+5+"px";
 	triangle_down_hit.style.left=left+85+"px";
 	triangle_down_hit.style.top=top+5+"px";
+	
 	triangle_up.style.left=left+"px";
 	triangle_down.style.left=left+52+"px";
 	
-	if(start=="DOWN"){
-	triangle_up_hit.style.left=left+85+"px";
-	triangle_down.style.left=left+"px";
-	triangle_up.style.left=left+52+"px";
-	triangle_up_hit.style.top=top+50+"px";
-	triangle_down_hit.style.left=left+32+"px";
-	triangle_down_hit.style.top=top+5+"px";
-	}
+	
 	triangle_up.style.top=top+"px";
 	triangle_up.style.position="absolute";
 	triangle_down.style.top=top+"px";
@@ -116,12 +120,13 @@ function addSection(id, top, left, start){
 	container.appendChild(triangle_down);
 	container.appendChild(triangle_up_hit);
 	container.appendChild(triangle_down_hit);
-	
+	console.log(triangle_up)
+	console.log(triangle_down)
 }
 
 function showFill(fill_area_id){
-	
-	var pattern_path_id = fill_area_id.id
+	console.log("showFill: "+fill_area_id.id)
+	var pattern_path_id = fill_area_id.id;
 	var	top_num = pattern_path_id.substr(7, 1);
 	
 	top_num = Number(top_num)
@@ -130,24 +135,39 @@ function showFill(fill_area_id){
 	
 	var triangle_type = pattern_path_id.substr(5, 1);
 	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
+	fill_area_id.setAttributeNS(null, 'fill', curr_color);
+	
 	//if U calculate from top
+	if (triangle_type == "U"){
 	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
 	td01.setAttributeNS(null, 'fill', curr_color);
 	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
 	td02.setAttributeNS(null, 'fill', curr_color);
 	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
 	td03.setAttributeNS(null, 'fill', curr_color);
-	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num-1))
+	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
 	tu01.setAttributeNS(null, 'fill', curr_color);
-	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
+	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num+1))
 	tu02.setAttributeNS(null, 'fill', curr_color);
-	
+	}
 	//if D calculate from center
+	if (triangle_type == "D"){
+	var td01 = document.getElementById("fill_D_"+(top_num)+"_"+(left_num-1))
+	td01.setAttributeNS(null, 'fill', curr_color);
+	var td02 = document.getElementById("fill_D_"+(top_num)+"_"+(left_num+1))
+	td02.setAttributeNS(null, 'fill', curr_color);
 	
+	var tu01 = document.getElementById("fill_U_"+(top_num-1)+"_"+(left_num))
+	tu01.setAttributeNS(null, 'fill', curr_color);
+	var tu02 = document.getElementById("fill_U_"+(top_num)+"_"+(left_num))
+	tu02.setAttributeNS(null, 'fill', curr_color);
+	var tu03 = document.getElementById("fill_U_"+(top_num)+"_"+(left_num+1))
+	tu03.setAttributeNS(null, 'fill', curr_color);
+	}
 	//var path = document.getElementById("fill"+path_substr)
 	
-	fill_area_id.setAttributeNS(null, 'fill', "#4472C4");
-	fill_area_id.removeEventListener('mouseout', mouseOutEffect);
+	
+	//fill_area_id.removeEventListener('mouseout', mouseOutEffect);
 	/*var control_color = path_name.getAttribute('fill');
 	//toggle stroke width and color
 	if (control_color=="#D9D9D9"){
@@ -173,7 +193,7 @@ function showFill(fill_area_id){
 		}
 	}*/
 }
-function mouseOverEffect() {
+/*function mouseOverEffect() {
   //fill_area_id.classList.add("shape-highlight");
 	console.log("MOUSE OVER: "+this.id)
 	var pattern_path_id = this.id;
@@ -198,8 +218,8 @@ function mouseOverEffect() {
 	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
 	tu02.setAttributeNS(null, 'fill', "#4472C4");
 	
-}
-function mouseOutEffect() {
+}*/
+/*function mouseOutEffect() {
 	console.log("MOUSE OUt")
   //this.classList.remove("shape-highlight");
 		console.log("MOUSE OVER: "+this.id)
@@ -224,7 +244,7 @@ function mouseOutEffect() {
 	tu01.setAttributeNS(null, 'fill', "#ffffff");
 	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
 	tu02.setAttributeNS(null, 'fill', "#ffffff");
-}
+}*/
 function activateSVGPaths(){
 	var lineclassElements = document.getElementsByClassName("hit_area");
 	
@@ -235,8 +255,10 @@ function activateSVGPaths(){
 		var fill_area_id = "fill"+hit_area_id.substr(3, 7);
 		//console.log("HIT AREA ID: "+fill_area_id)
 		//var fill_area=document.getElementById(fill_area_id)
-		lineclassElements[i].setAttributeNS(null, 'cursor', "hand");
+		//lineclassElements[i].setAttributeNS(null, 'cursor', "hand");
 		lineclassElements[i].setAttributeNS(null, 'onclick',"showFill("+fill_area_id+")");
+		lineclassElements[i].setAttributeNS(null, 'ondrop',"drop(event, "+fill_area_id+")");
+	lineclassElements[i].setAttributeNS(null, 'ondragover',"allowDrop(event)")
 		//lineclassElements[i].addEventListener("mouseover", mouseOverEffect(fill_area_id));
 		//lineclassElements[i].addEventListener('mouseover', mouseOverEffect);
    		//lineclassElements[i].addEventListener('mouseout', mouseOutEffect);
