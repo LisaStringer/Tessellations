@@ -2,18 +2,11 @@
 /* CSS Document */
 
 /* Color Theme Swatches in Hex */
-.lago-1 { color: #00040D; }
-.lago-2 { color: #023059; }
-.lago-3 { color: #0378A6; }
-.lago-4 { color: #0388A6; }
-.lago-5 { color: #F2784B; }
-
-/* Color Theme Swatches in Hex */
-.IC3-1 { color: #BF365A; }
-.IC3-2 { color: #B4B9D9; }
-.IC3-3 { color: #033E8C; }
-.IC3-4 { color: #023373; }
-.IC3-5 { color: #011C26; }
+.LakeHouse-1 { color: #00040D; }
+.LakeHouse-2 { color: #023059; }
+.LakeHouse-3 { color: #0378A6; }
+.LakeHouse-4 { color: #0388A6; }
+.LakeHouse-5 { color: #F2784B; }
 
 /* Color Theme Swatches in Hex */
 .Denim-1 { color: #404E70; }
@@ -49,3 +42,10 @@
 .Westward-3 { color: #0396A6; }
 .Westward-4 { color: #02733E; }
 .Westward-5 { color: #F21B07; }
+
+/* Color Theme Swatches in Hex */
+.Before-the-Storm-1 { color: #103240; }
+.Before-the-Storm-2 { color: #1D6373; }
+.Before-the-Storm-3 { color: #4995A6; }
+.Before-the-Storm-4 { color: #732929; }
+.Before-the-Storm-5 { color: #A64141; }

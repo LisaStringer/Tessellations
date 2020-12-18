@@ -17,7 +17,13 @@ var container = document.getElementById("container");
 var color_container = document.getElementById("color_container");
 
 var nav_bar = document.getElementById("nav_bar");
-
+var pentamino01 = ['00','01','02','11','21'];
+var pentamino02 = ['00','01','02','03','13'];
+var pentamino03 = ['00','01','02','12','22'];
+var pentamino04 = ['01','10','11','12','13'];
+var pentamino05 = ['00','10','11','21','31'];
+var pentamino06 = ['01','03','10','11','21'];
+var current_pattern = ['00','01','02','11','21'];
 function setColor(hex_code){
 	
 	
@@ -25,6 +31,7 @@ function setColor(hex_code){
 	curr_color = hex_code;
 	
 }
+
 function populateColors(){
 
 	var curr_left = 0;
@@ -46,33 +53,37 @@ function populateColors(){
 	}
 }
 function createPattern(){
-	var left_calc = 100;
-	var left_start = 100;
+	var left_calc = 10;
+	var left_start = 10;
 	var top_calc = 10;
-	var start_shape = "UP";
-	for (t = 0; t <= 8; t++) {
-		if (t%2==0){
-			console.log(t+": EVEN");
-			start_shape = "UP"
-		}else{
-			start_shape="DOWN"
-		}
-	for (n = 0; n <= 20; n++) { 
-		addSection("_"+t+"_"+n, top_calc, left_calc, start_shape);
+	
+	//calculate screen height and width
+	console.log("WIDTH: "+window.width +"HEIGHT: "+ window.height)
+	var row_num = Math.floor((window.innerHeight-400)/70);
+	var col_num = Math.floor(window.innerWidth/70);
+	for (t = 0; t <= row_num; t++) {
+		
+	for (n = 0; n <= col_num; n++) { 
+		addSection("_"+t+"_"+n, top_calc, left_calc, "square");
 		//console.log("clip_"+t+"_"+n)
-		left_calc = left_calc + 108;
+		left_calc = left_calc + 67;
 		//console.log(left_calc);
 	}
-		top_calc = top_calc + 98;
-		left_start = left_start -55;
+		top_calc = top_calc + 67;
+		left_start = left_start;
 		left_calc = left_start;
 			
 		
 	}
-	//addSection("clip0", 10, 0);
-	//addSection("clip1", 10, 210);
-	//addSection("clip1", 10, 420);
+	
 	activateSVGPaths();
+}
+function createSample(sample_name){
+	console.log("sample: "+sample_name);
+	
+	var left_calc = 10;
+	var left_start = 10;
+	var top_calc = 1000;
 }
 /*function addDropShapes(){
 	var shape01_up = document.createElement("div");
@@ -87,61 +98,42 @@ function createPattern(){
 }*/
 function addSection(id, top, left, start){
 	//console.log(id);
+	var tile = document.createElement("div");
+	tile.innerHTML = "<svg width='71' height='72' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' overflow='hidden'><defs><clipPath id='clip0'><rect x='65' y='74' width='71' height='72'/></clipPath></defs><g clip-path='url(#clip0)' transform='translate(-65 -74)' <path id='fill_"+id+"'><rect x='67.5001' y='76.5001' width='67' height='68' stroke='#4472C4' stroke-width='3' stroke-miterlimit='8' stroke-dasharray='3 3' fill='#F2F2F2'/></g></svg>";
 	
-	var triangle_up = document.createElement("div");
-	triangle_up.innerHTML = "<svg width='118' height='102' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' overflow='hidden'><defs><clipPath  id='clip_U"+id+"' ><rect x='690' y='236' width='118' height='102'/></clipPath></defs><g clip-path='url(#clip0)' transform='translate(-690 -236)'><path id='fill_U"+id+"' class='hover' d='M693.5 336.5 749 240.5 804.5 336.5Z' stroke='#2F528F' stroke-width='3' stroke-miterlimit='8' stroke-dasharray='3 3' fill='#FFFFFF' fill-rule='evenodd'/></g></svg>";
-	var triangle_down = document.createElement("div");
-	triangle_down.innerHTML = "<svg width='119' height='102' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' overflow='hidden'><defs><clipPath  id='clip_D"+id+"' ><rect x='745' y='237' width='119' height='102'/></clipPath></defs><g clip-path='url(#clip0)' transform='translate(-745 -237)'><path id='fill_D"+id+"' class='hover' d='M0 96 55.5 0 111 96Z' stroke='#2F528F' stroke-width='3' stroke-miterlimit='8' stroke-dasharray='3 3' fill='#FFFFFF' fill-rule='evenodd' transform='matrix(1 0 0 -1 749.5 335.5)'/></g></svg>";
+	var tile_hit = document.createElement("div");
+	tile_hit.id="hit"+id;
+	tile_hit.className="hit_area"
+	tile_hit.style.left=left+2+"px";
+	tile_hit.style.top=top+2+"px";
 	
-	var triangle_up_hit = document.createElement("div");
-	triangle_up_hit.id="hit_U"+id;
-	triangle_up_hit.className="hit_area"
-	//triangle_up_hit.ondrop="drop(event)";
-	//triangle_up_hit.ondragover="allowDrop(event)"
-
-	var triangle_down_hit = document.createElement("div");
-	triangle_down_hit.id="hit_D"+id;
-	triangle_down_hit.className="hit_area"
-	triangle_up_hit.style.left=left+32+"px";
-	triangle_up_hit.style.top=top+5+"px";
-	triangle_down_hit.style.left=left+85+"px";
-	triangle_down_hit.style.top=top+5+"px";
+	tile_hit.style.height="70px";
+	tile_hit.style.width="70px";
+	tile.style.left=left+"px";	
+	tile.style.top=top+"px";
+	tile.style.position="absolute";
 	
-	triangle_up.style.left=left+"px";
-	triangle_down.style.left=left+52+"px";
-	
-	
-	triangle_up.style.top=top+"px";
-	triangle_up.style.position="absolute";
-	triangle_down.style.top=top+"px";
-	triangle_down.style.position="absolute";
-	
-	container.appendChild(triangle_up);
-	container.appendChild(triangle_down);
-	container.appendChild(triangle_up_hit);
-	container.appendChild(triangle_down_hit);
-	console.log(triangle_up)
-	console.log(triangle_down)
+	container.appendChild(tile);
+	container.appendChild(tile_hit);
 }
 
 function showFill(fill_area_id){
 	console.log("showFill: "+fill_area_id.id)
 	var pattern_path_id = fill_area_id.id;
-	var	top_num = pattern_path_id.substr(7, 1);
+	var	top_num = pattern_path_id.substr(6, 1);
 	
 	top_num = Number(top_num)
-	var left_num = pattern_path_id.substr(9, 2);
+	var left_num = pattern_path_id.substr(8, 2);
 	left_num = Number(left_num)
 	
 	var triangle_type = pattern_path_id.substr(5, 1);
 	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
 	fill_area_id.setAttributeNS(null, 'fill', curr_color);
 	
-	//if U calculate from top
-	if (triangle_type == "U"){
-	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
+	for (n = 0; n <= 5; n++) { 
+	var tile = document.getElementById("fill"+(top_num+1)+"_"+(left_num-1))
 	td01.setAttributeNS(null, 'fill', curr_color);
-	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
+	var td02 = document.getElementById("fill"+(top_num+1)+"_"+left_num)
 	td02.setAttributeNS(null, 'fill', curr_color);
 	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
 	td03.setAttributeNS(null, 'fill', curr_color);
@@ -150,20 +142,7 @@ function showFill(fill_area_id){
 	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num+1))
 	tu02.setAttributeNS(null, 'fill', curr_color);
 	}
-	//if D calculate from center
-	if (triangle_type == "D"){
-	var td01 = document.getElementById("fill_D_"+(top_num)+"_"+(left_num-1))
-	td01.setAttributeNS(null, 'fill', curr_color);
-	var td02 = document.getElementById("fill_D_"+(top_num)+"_"+(left_num+1))
-	td02.setAttributeNS(null, 'fill', curr_color);
 	
-	var tu01 = document.getElementById("fill_U_"+(top_num-1)+"_"+(left_num))
-	tu01.setAttributeNS(null, 'fill', curr_color);
-	var tu02 = document.getElementById("fill_U_"+(top_num)+"_"+(left_num))
-	tu02.setAttributeNS(null, 'fill', curr_color);
-	var tu03 = document.getElementById("fill_U_"+(top_num)+"_"+(left_num+1))
-	tu03.setAttributeNS(null, 'fill', curr_color);
-	}
 	//var path = document.getElementById("fill"+path_substr)
 	
 	
@@ -193,43 +172,40 @@ function showFill(fill_area_id){
 		}
 	}*/
 }
+function setPattern(shape_name){
+	
+	current_pattern = eval(shape_name);
+	var sample_window = document.getElementById("sample_window");
+	sample_window.innerHTML="<img src='images/"+shape_name+".svg'/>"
+}
 function mouseOverEffect() {
   //fill_area_id.classList.add("shape-highlight");
+	
 	if(this!=undefined){
-	console.log("MOUSE OVER: "+this.id)
-	var pattern_path_id = this.id;
+			var pattern_path_id = this.id;
 	var	top_num = pattern_path_id.substr(6, 1);
 	
 	top_num = Number(top_num)
 	var left_num = pattern_path_id.substr(8, 2);
 	left_num = Number(left_num)
-	
-	var triangle_type = pattern_path_id.substr(5, 1);
-	console.log("TOP: "+top_num+" LEFT: "+left_num+" TYPE: "+triangle_type)
-	//if U calculate from top
-	
-	var td01 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num-1))
+	console.log("MOUSE OVER: "+this.id);
+		
+	for(var i = 0; i < current_pattern.length; i++){
+		var tile_id = current_pattern[i];
+		var row_num = Number(tile_id.substr(1,1));
+		var col_num = Number(tile_id.substr(1,2));
+		console.log("fill_"+(top_num+row_num)+"_"+(left_num+col_num))
+		var td01 = document.getElementById("fill_"+(top_num+row_num)+"_"+(left_num+col_num))
 	if(td01 != null){
 	td01.setAttributeNS(null, 'fill', "#4472C4");
-	}
-	var td02 = document.getElementById("fill_D_"+(top_num+1)+"_"+left_num)
-	if(td02 != null){
-	td02.setAttributeNS(null, 'fill', "#4472C4");
-	}
-	var td03 = document.getElementById("fill_D_"+(top_num+1)+"_"+(left_num+1))
-	if(td03 != null){
-	td03.setAttributeNS(null, 'fill', "#4472C4");
-	}
-	var tu01 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num-1))
-	if(tu01 != null){
-	tu01.setAttributeNS(null, 'fill', "#4472C4");
-	}
-	var tu02 = document.getElementById("fill_U_"+(top_num+1)+"_"+(left_num))
-	if(tu02 != null){
-	tu02.setAttributeNS(null, 'fill', "#4472C4");
+	}			
 	}
 	}
 }
+		
+		
+	
+
 function mouseOutEffect() {
 	console.log("MOUSE OUt")
   //this.classList.remove("shape-highlight");
