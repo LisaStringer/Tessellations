@@ -1,0 +1,150 @@
+@charset "utf-8";
+/* CSS Document */
+
+.grid-container {
+  display: grid;
+  grid-gap: 0px;
+  background-color: #2196F3;
+  padding: 5px;
+	width: 290px;
+	height: 290px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: 5px;
+  font-size: 30px;
+}
+
+.item11 {
+	  border-radius: 5px;
+  grid-column: 1 / span 1;
+  grid-row: 1;
+}
+.item12 {
+  grid-column: 2 / span 1;
+  grid-row: 1; / span 1;
+	background-color: #2196F3;
+}
+.item13 {
+	  border-radius: 5px;
+  grid-column: 3 / span 1;
+  grid-row: 1; / span 1;
+	
+}
+	.item14 {
+  grid-column: 4; / span 1;
+  grid-row: 1 / span 1;
+	 background-color: #2196F3;
+}
+.item15 {
+	border-radius: 5px;
+  grid-column: 5; / span 1;
+  grid-row: 1 / span 1;
+	 
+}
+.item21 {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+	 background-color: #2196F3;
+}
+.item22 {
+	border-radius: 5px;
+  grid-column: 2 / span 3;
+  grid-row: 2 / span 3;
+	background-color: white;
+}
+.item23 {
+  grid-column: 3 / span 1;
+  grid-row: 2; / span 1;
+}
+	.item24 {
+  grid-column: 4; / span 1;
+  grid-row: 2 / span 1;
+	 background-color: #2196F3;
+}
+.item25 {
+  grid-column: 5; / span 1;
+  grid-row: 2 / span 1;
+	 background-color: #2196F3;
+}
+	
+	.item31 {
+		border-radius: 5px;
+  grid-column: 1 / span 1;
+  grid-row: 3;
+}
+.item32 {
+  grid-column: 2 / span 1;
+  grid-row: 3; / span 1;
+}
+.item33 {
+  grid-column: 3 / span 1;
+  grid-row: 3; / span 1;
+}
+	.item34 {
+  grid-column: 4; / span 1;
+  grid-row: 3 / span 1;
+	
+}
+.item35 {
+	border-radius: 5px;
+  grid-column: 5; / span 1;
+  grid-row: 3 / span 1;
+	
+}
+	
+		.item41 {
+  grid-column: 1 / span 1;
+  grid-row: 4;
+		background-color: #2196F3;
+}
+.item42 {
+  grid-column: 2 / span 1;
+  grid-row: 4; / span 1;
+}
+.item43 {
+  grid-column: 3 / span 1;
+  grid-row: 4; / span 1;
+}
+	.item44 {
+  grid-column: 4; / span 1;
+  grid-row: 4 / span 1;
+	 background-color: #2196F3;
+}
+.item45 {
+  grid-column: 5; / span 1;
+  grid-row: 4 / span 1;
+	 background-color: #2196F3;
+}
+		.item51 {
+			border-radius: 5px;
+  grid-column: 1; / span 1;
+  grid-row: 5 / span 1;
+	 
+}
+			.item52 {
+  grid-column: 2; / span 1;
+  grid-row: 5 / span 1;
+				background-color: #2196F3;
+	 
+}
+	.item53 {
+		border-radius: 5px;
+  grid-column: 3; / span 1;
+  grid-row: 5 / span 1;
+	 
+}
+		.item54 {
+  grid-column: 4; / span 1;
+  grid-row: 5 / span 1;
+			background-color: #2196F3;
+	 
+}
+	.item55 {
+		border-radius: 5px;
+  grid-column: 5; / span 1;
+  grid-row: 5 / span 1;
+	 
+}
