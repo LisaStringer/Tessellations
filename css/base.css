@@ -63,11 +63,10 @@ btn {
 	position: absolute;
 }
 .hit_area{
-	width:50px;
-	height:100px;
 	
+	background-color: aliceblue;
 	position:absolute;
-	opacity: 25%;
+	opacity: 55%;
 	z-index: 95;
 }
 .shape-highlight {
